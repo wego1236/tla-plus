@@ -4,7 +4,7 @@
 
 Welcome to the TLA+ specification for Raft-RS!
 
-The TLA+ specification is tailored specifically for Raft-RS.
+The TLA+ specification is tailored specifically for Raft-RS(The current version corresponds to v0.7.0).
 Unlike existing TLA+ specifications for the Raft protocol, which tend to be high-level and abstract,
 we write specifications closely with the codebase.
 By doing so, we aim to capture the design choices and optimizations made in the implementation,

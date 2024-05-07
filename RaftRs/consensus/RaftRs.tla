@@ -1117,13 +1117,11 @@ InvSequence == <<
     CommittedLogReplicatedMajority,
     NextIdxGtMatchIdx,
     NextIdxGtZero,
-    \* CheckLeader
     FollowerLogLELeaderLogAfterAE,
     CommitIdxLELogLen,
     LeaderCommitCurrentTermLogs,
     NewLeaderTermNotInLog,
     LeaderTermLogHasGreatestIdx
-
 >>
 
 INV == Len(SelectSeqWithIdx(inv, LAMBDA x, y: ~x /\ y \notin netman.no_inv)) = 0
@@ -1175,19 +1173,6 @@ DoRecvEntry ==
     /\ \E n \in Servers, v \in Commands: RecvEntry(n, v)
     /\ inv' = InvSequence
 
-\* DoNetworkDrop ==
-\*     /\ PrePrune(NetGetDrop, "MaxDropTimes")
-\*     /\ \E m \in msgs: 
-\*         /\ NetUpdate2(NetDropMsg(m), <<"DoNetworkDrop", m.dst, m.src, m.seq>>)
-\*         /\ UNCHANGED noNetVars
-\*     /\ inv' = InvSequence
-
-\* DoNetworkDup ==
-\*     /\ PrePrune(NetGetDup, "MaxDupTimes")
-\*     /\ \E m \in msgs: 
-\*         /\ NetUpdate2(NetDupMsg(m), <<"DoNetworkDup", m.dst, m.src, m.seq>>)
-\*         /\ UNCHANGED noNetVars
-\*     /\ inv' = InvSequence
 
 DoNetworkPartition ==
     /\ PrePrune(netman.n_part, "MaxPartitionTimes")
