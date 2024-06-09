@@ -119,9 +119,6 @@ TypeOkLeaderVars ==
     /\ nextIndex   \in [ Servers -> [ Servers -> Nat \ {0} ]]
     /\ matchIndex  \in [ Servers -> [ Servers -> Nat ]]
 
-\* TypeOkCandidateVars ==
-\*     /\ votesGranted  \in [ Servers -> {} ]
-
 TypeOkLogVars ==
     \* log data structure is complex, we skip checking it
     /\ commitIndex \in [ Servers -> Nat ]
@@ -550,9 +547,6 @@ Poll(grant, reject) ==
             THEN "Lost"
             ELSE "Pending"
 
-
-
-
 HandleMsgRVR( m) ==
     LET resp == m.data
         src == m.src
@@ -937,8 +931,6 @@ GetMaxTerm == currentTerm[CHOOSE i \in Servers: \A j \in Servers \ {i}:
 ScSent == CheckParameterMax(netman.n_sent, "MaxSentMsgs")
 ScRecv == CheckParameterMax(netman.n_recv, "MaxRecvMsgs")
 ScWire == CheckParameterMax(netman.n_wire, "MaxWireMsgs")
-\* ScLog  == CheckParameterMax(GetMaxLogLen,  "MaxLogLength")
-\* ScTerm == CheckParameterMax(GetMaxTerm,    "MaxTerm")
 ScPart == CheckParameterMax(netman.n_part, "MaxPartitionTimes")
 ScCure == CheckParameterMax(netman.n_cure, "MaxCureTimes")
 ScOp   == CheckParameterMax(netman.n_op,   "MaxClientOperationsTimes")
@@ -1206,8 +1198,6 @@ Next ==
     \/ DoHandleMsgAE
     \/ DoHandleMsgAER
     \/ DoRecvEntry
-    \* \/ DoNetworkDrop
-    \* \/ DoNetworkDup
     \/ DoNetworkPartition
     \/ DoNetworkCure
 
